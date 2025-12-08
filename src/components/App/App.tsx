@@ -5,11 +5,10 @@ import { useState } from 'react';
 import VoteOptions from '../VoteOptions/VoteOptions.tsx';
 import VoteStats from '../VoteStats/VoteStats.tsx';
 import Notification from '../Notification/Notification.tsx';
-import { type Votes, type OptionType} from '../../types/votes.ts';
-
-const feedbackOptions: OptionType[] = ['good', 'neutral', 'bad'];
+import { type Votes, type VoteType} from '../../types/votes.ts';
 
 function App() {
+
   // 1. СТЕЙТ: Зберігання голосів
   const [votes, setVotes] = useState<Votes>({
     good: 0,
@@ -18,10 +17,10 @@ function App() {
   });
 
   // 2. ФУНКЦЯ: Обробка голосування
-  const handleVote = (option: OptionType) => {
+  const handleVote = (vote: VoteType) => {
     setVotes(prevVotes => ({
       ...prevVotes,
-      [option]: prevVotes[option] + 1,
+      [vote]: prevVotes[vote] + 1,
     }));
   };
 
@@ -65,8 +64,7 @@ function App() {
     <div className={styles.app}>
       <CafeInfo />
       <VoteOptions
-        options={feedbackOptions}
-        onLeaveFeedback={handleVote}
+        onVote={handleVote}
         onReset={resetVotes}
         canReset={canReset}
       />

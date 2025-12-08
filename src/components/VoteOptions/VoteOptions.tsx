@@ -1,26 +1,27 @@
 // src/components/VoteOptions/VoteOptions.tsx (ВИПРАВЛЕНО)
 
 import styles from './VoteOptions.module.css';
-import { type OptionType } from '../../types/votes.ts';
+import { type VoteType } from '../../types/votes.ts';
 import { type FC } from 'react';
 
+const buttons: VoteType[] = ['good', 'neutral', 'bad'];
+
 interface VoteOptionsProps {
-  options: OptionType[]; 
-  onLeaveFeedback: (option: OptionType) => void; 
+  onVote: (vote: VoteType) => void; 
   onReset: () => void; 
   canReset: boolean;
 }
 
-const VoteOptions: FC<VoteOptionsProps> = ({ options, onLeaveFeedback, onReset, canReset }) => { 
+const VoteOptions: FC<VoteOptionsProps> = ({ onVote, onReset, canReset }) => { 
   return (
     <div className={styles.container}>
       {/* 1. КНОПКИ ГОЛОСУВАННЯ */}
-      {options.map((option) => (
+      {buttons.map((option) => (
         <button
           key={option}
           type="button"
           className={styles.button} 
-          onClick={() => onLeaveFeedback(option)}
+          onClick={() => onVote(option)}
         >
           {option.charAt(0).toUpperCase() + option.slice(1)}
         </button>
